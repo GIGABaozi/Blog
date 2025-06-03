@@ -1,5 +1,5 @@
-import { a as t } from './hoisted.CmmGzjMy.js'
-import './hoisted.B-TAxfYQ.js'
+import { a as t } from './hoisted.laZqQoDl.js'
+import './hoisted.Bu7scdgK.js'
 const o = localStorage.getItem('animations') === 'true'
 o &&
 	t(
