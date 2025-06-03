@@ -516,133 +516,11 @@ document.addEventListener('click', (t) => {
 		? e?.classList.toggle('translate-x-96')
 		: e?.classList.add('translate-x-96')
 })
-class _e extends HTMLElement {
-	constructor() {
-		super()
-		const e = this.querySelector('button')
-		e &&
-			e.addEventListener('click', (n) => {
-				if (n.currentTarget instanceof HTMLButtonElement) {
-					let r = n.currentTarget.getAttribute('aria-pressed') === 'true',
-						s = new CustomEvent('theme-change', { detail: { theme: r ? 'light' : 'dark' } })
-					document.dispatchEvent(s), e.setAttribute('aria-pressed', String(!r))
-				}
-			})
-	}
-}
-'customElements' in window && customElements.define('theme-toggle', _e)
-const Fe = 'modulepreload',
-	qe = function (t) {
-		return '/Blog/' + t
-	},
-	mt = {},
-	$e = function (e, n, r) {
-		let s = Promise.resolve()
-		if (n && n.length > 0) {
-			document.getElementsByTagName('link')
-			const a = document.querySelector('meta[property=csp-nonce]'),
-				c = a?.nonce || a?.getAttribute('nonce')
-			s = Promise.allSettled(
-				n.map((i) => {
-					if (((i = qe(i)), i in mt)) return
-					mt[i] = !0
-					const u = i.endsWith('.css'),
-						l = u ? '[rel="stylesheet"]' : ''
-					if (document.querySelector(`link[href="${i}"]${l}`)) return
-					const f = document.createElement('link')
-					if (
-						((f.rel = u ? 'stylesheet' : Fe),
-						u || (f.as = 'script'),
-						(f.crossOrigin = ''),
-						(f.href = i),
-						c && f.setAttribute('nonce', c),
-						document.head.appendChild(f),
-						u)
-					)
-						return new Promise((d, g) => {
-							f.addEventListener('load', d),
-								f.addEventListener('error', () => g(new Error(`Unable to preload CSS for ${i}`)))
-						})
-				})
-			)
-		}
-		function o(a) {
-			const c = new Event('vite:preloadError', { cancelable: !0 })
-			if (((c.payload = a), window.dispatchEvent(c), !c.defaultPrevented)) throw a
-		}
-		return s.then((a) => {
-			for (const c of a || []) c.status === 'rejected' && o(c.reason)
-			return e().catch(o)
-		})
-	}
-class Ue extends HTMLElement {
-	constructor() {
-		super()
-		const e = this.querySelector('button[data-open-modal]'),
-			n = this.querySelector('button[data-close-modal]'),
-			r = this.querySelector('dialog'),
-			s = this.querySelector('.dialog-frame'),
-			o = (u) => {
-				document.body.contains(u.target) && !s.contains(u.target) && i()
-			},
-			a = (u) => {
-				if (u.key === 'Escape' && r.open) i(), window.removeEventListener('keydown', a)
-				else return
-			},
-			c = (u) => {
-				r.showModal(),
-					Ce(
-						'dialog',
-						{
-							clipPath: [
-								'polygon(0 0, 100% 0, 100% -200%, -200% -200%)',
-								'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
-							],
-							opacity: [0, 1]
-						},
-						{ duration: 0.2 }
-					),
-					document.body.classList.add('overflow-hidden'),
-					this.querySelector('input')?.focus(),
-					u?.stopPropagation(),
-					window.addEventListener('click', o),
-					window.addEventListener('keydown', a)
-			},
-			i = () => {
-				r.close(),
-					document.body.classList.remove('overflow-hidden'),
-					window.removeEventListener('click', o),
-					window.addEventListener('keydown', a)
-			}
-		e.addEventListener('click', c),
-			(e.disabled = !1),
-			n.addEventListener('click', i),
-			document.addEventListener('astro:after-swap', i),
-			window.addEventListener('keydown', (u) => {
-				u.key === '/' && !r.open && (c(), u.preventDefault())
-			}),
-			window.addEventListener('DOMContentLoaded', () => {
-				;(window.requestIdleCallback || ((l) => setTimeout(l, 1)))(async () => {
-					const { PagefindUI: l } = await $e(async () => {
-						const { PagefindUI: f } = await import('./ui-core.DKKBLAR3.js')
-						return { PagefindUI: f }
-					}, [])
-					new l({
-						element: '#pagefind__search',
-						baseUrl: '/Blog/',
-						bundlePath: '/Blog/'.replace(/\/$/, '') + '/pagefind/',
-						showImages: !1
-					})
-				})
-			})
-	}
-}
-customElements.define('site-search', Ue)
-const Ne = 'astro:before-preparation',
-	Ve = 'astro:after-preparation',
-	Be = 'astro:before-swap',
-	He = 'astro:after-swap',
-	je = (t) => document.dispatchEvent(new Event(t))
+const _e = 'astro:before-preparation',
+	Fe = 'astro:after-preparation',
+	qe = 'astro:before-swap',
+	$e = 'astro:after-swap',
+	Ue = (t) => document.dispatchEvent(new Event(t))
 class Mt extends Event {
 	from
 	to
@@ -671,11 +549,11 @@ class Mt extends Event {
 			})
 	}
 }
-class We extends Mt {
+class Ne extends Mt {
 	formData
 	loader
 	constructor(e, n, r, s, o, a, c, i, u) {
-		super(Ne, { cancelable: !0 }, e, n, r, s, o, a, c),
+		super(_e, { cancelable: !0 }, e, n, r, s, o, a, c),
 			(this.formData = i),
 			(this.loader = u.bind(this, this)),
 			Object.defineProperties(this, {
@@ -684,13 +562,13 @@ class We extends Mt {
 			})
 	}
 }
-class Xe extends Mt {
+class Ve extends Mt {
 	direction
 	viewTransition
 	swap
 	constructor(e, n, r) {
 		super(
-			Be,
+			qe,
 			void 0,
 			e.from,
 			e.to,
@@ -710,20 +588,20 @@ class Xe extends Mt {
 			})
 	}
 }
-async function Ke(t, e, n, r, s, o, a, c) {
-	const i = new We(t, e, n, r, s, o, window.document, a, c)
+async function Be(t, e, n, r, s, o, a, c) {
+	const i = new Ne(t, e, n, r, s, o, window.document, a, c)
 	return (
 		document.dispatchEvent(i) &&
 			(await i.loader(),
-			i.defaultPrevented || (je(Ve), i.navigationType !== 'traverse' && st({ scrollX, scrollY }))),
+			i.defaultPrevented || (Ue(Fe), i.navigationType !== 'traverse' && st({ scrollX, scrollY }))),
 		i
 	)
 }
-async function ze(t, e, n) {
-	const r = new Xe(t, e, n)
+async function He(t, e, n) {
+	const r = new Ve(t, e, n)
 	return document.dispatchEvent(r), r.swap(), r
 }
-const Ye = history.pushState.bind(history),
+const je = history.pushState.bind(history),
 	rt = history.replaceState.bind(history),
 	st = (t) => {
 		history.state && ((history.scrollRestoration = 'manual'), rt({ ...history.state, ...t }, ''))
@@ -737,7 +615,7 @@ let K,
 	Ct
 const _t = (t) => document.dispatchEvent(new Event(t)),
 	Ft = () => _t('astro:page-load'),
-	Ge = () => {
+	We = () => {
 		let t = document.createElement('div')
 		t.setAttribute('aria-live', 'assertive'),
 			t.setAttribute('aria-atomic', 'true'),
@@ -751,13 +629,13 @@ const _t = (t) => document.dispatchEvent(new Event(t)),
 	A = 'data-astro-transition-persist',
 	qt = 'data-astro-transition',
 	$t = 'data-astro-transition-fallback'
-let pt,
+let mt,
 	F = 0
 history.state
 	? ((F = history.state.index),
 		scrollTo({ left: history.state.scrollX, top: history.state.scrollY }))
 	: ot() && (rt({ index: F, scrollX, scrollY }, ''), (history.scrollRestoration = 'manual'))
-const Ze = (t, e) => {
+const Xe = (t, e) => {
 	let n = !1,
 		r = !1
 	return (...s) => {
@@ -772,7 +650,7 @@ const Ze = (t, e) => {
 			}, e)
 	}
 }
-async function Je(t, e) {
+async function Ke(t, e) {
 	try {
 		const n = await fetch(t, e),
 			s = (n.headers.get('content-type') ?? '').split(';', 1)[0].trim()
@@ -787,7 +665,7 @@ function Ut() {
 	const t = document.querySelector('[name="astro-view-transitions-fallback"]')
 	return t ? t.getAttribute('content') : 'animate'
 }
-function Qe() {
+function ze() {
 	let t = Promise.resolve()
 	for (const e of Array.from(document.scripts)) {
 		if (e.dataset.astroExec === '') continue
@@ -813,7 +691,7 @@ const Nt = (t, e, n, r) => {
 		if (n.history === 'replace') {
 			const a = history.state
 			rt({ ...n.state, index: a.index, scrollX: a.scrollX, scrollY: a.scrollY }, '', t.href)
-		} else Ye({ ...n.state, index: ++F, scrollX: 0, scrollY: 0 }, '', t.href)
+		} else je({ ...n.state, index: ++F, scrollX: 0, scrollY: 0 }, '', t.href)
 	;(K = t),
 		s || (scrollTo({ left: 0, top: 0, behavior: 'instant' }), (o = !0)),
 		r
@@ -823,7 +701,7 @@ const Nt = (t, e, n, r) => {
 					: o || scrollTo({ left: 0, top: 0, behavior: 'instant' }),
 				(history.scrollRestoration = 'manual'))
 }
-function tn(t) {
+function Ye(t) {
 	const e = []
 	for (const n of t.querySelectorAll('head link[rel=stylesheet]'))
 		if (
@@ -843,7 +721,7 @@ function tn(t) {
 		}
 	return e
 }
-async function gt(t, e, n, r) {
+async function pt(t, e, n, r) {
 	const s = (l, f) => {
 			const d = l.getAttribute(A),
 				g = d && f.head.querySelector(`[${A}="${d}"]`)
@@ -918,8 +796,8 @@ async function gt(t, e, n, r) {
 	if (!j)
 		document.documentElement.setAttribute(qt, t.direction), r === 'animate' && (await i('old'))
 	else throw new DOMException('Transition was skipped')
-	const u = await ze(t, D, c)
-	Nt(u.to, u.from, e, n), _t(He), r === 'animate' && !j && i('new').then(() => Ct())
+	const u = await He(t, D, c)
+	Nt(u.to, u.from, e, n), _t($e), r === 'animate' && !j && i('new').then(() => Ct())
 }
 async function Vt(t, e, n, r, s) {
 	if (!ot() || location.origin !== n.origin) {
@@ -931,7 +809,7 @@ async function Vt(t, e, n, r, s) {
 		Nt(n, e, r, s)
 		return
 	}
-	const a = await Ke(e, n, t, o, r.sourceElement, r.info, r.formData, c)
+	const a = await Be(e, n, t, o, r.sourceElement, r.info, r.formData, c)
 	if (a.defaultPrevented) {
 		location.href = n.href
 		return
@@ -952,28 +830,28 @@ async function Vt(t, e, n, r, s) {
 					? new URLSearchParams(i.formData)
 					: i.formData
 		}
-		const f = await Je(u, l)
+		const f = await Ke(u, l)
 		if (f === null) {
 			i.preventDefault()
 			return
 		}
 		if (
 			(f.redirected && (i.to = new URL(f.redirected)),
-			(pt ??= new DOMParser()),
-			(i.newDocument = pt.parseFromString(f.html, f.mediaType)),
+			(mt ??= new DOMParser()),
+			(i.newDocument = mt.parseFromString(f.html, f.mediaType)),
 			i.newDocument.querySelectorAll('noscript').forEach((g) => g.remove()),
 			!i.newDocument.querySelector('[name="astro-view-transitions-enabled"]') && !i.formData)
 		) {
 			i.preventDefault()
 			return
 		}
-		const d = tn(i.newDocument)
+		const d = Ye(i.newDocument)
 		d.length && (await Promise.all(d))
 	}
-	if (((j = !1), it)) D = document.startViewTransition(async () => await gt(a, r, s))
+	if (((j = !1), it)) D = document.startViewTransition(async () => await pt(a, r, s))
 	else {
 		const i = (async () => {
-			await new Promise((u) => setTimeout(u)), await gt(a, r, s, Ut())
+			await new Promise((u) => setTimeout(u)), await pt(a, r, s, Ut())
 		})()
 		D = {
 			updateCallbackDone: i,
@@ -985,17 +863,17 @@ async function Vt(t, e, n, r, s) {
 		}
 	}
 	D.ready.then(async () => {
-		await Qe(), Ft(), Ge()
+		await ze(), Ft(), We()
 	}),
 		D.finished.then(() => {
 			document.documentElement.removeAttribute(qt), document.documentElement.removeAttribute($t)
 		}),
 		await D.ready
 }
-async function yt(t, e) {
+async function gt(t, e) {
 	await Vt('forward', K, new URL(t, location.href), e ?? {})
 }
-function en(t) {
+function Ge(t) {
 	if (!ot() && t.state) {
 		location.reload()
 		return
@@ -1006,29 +884,29 @@ function en(t) {
 		r = n > F ? 'forward' : 'back'
 	;(F = n), Vt(r, K, new URL(location.href), {}, e)
 }
-const wt = () => {
+const yt = () => {
 	st({ scrollX, scrollY })
 }
 {
 	;(it || Ut() !== 'none') &&
 		((K = new URL(location.href)),
-		addEventListener('popstate', en),
+		addEventListener('popstate', Ge),
 		addEventListener('load', Ft),
 		'onscrollend' in window
-			? addEventListener('scrollend', wt)
-			: addEventListener('scroll', Ze(wt, 350), { passive: !0 }))
+			? addEventListener('scrollend', yt)
+			: addEventListener('scroll', Xe(yt, 350), { passive: !0 }))
 	for (const t of document.scripts) t.dataset.astroExec = ''
 }
 const Bt = new Set(),
 	W = new WeakSet()
 let tt,
 	Ht,
-	vt = !1
-function nn(t) {
-	vt ||
-		((vt = !0), (tt ??= t?.prefetchAll), (Ht ??= t?.defaultStrategy ?? 'hover'), rn(), sn(), on())
+	wt = !1
+function Ze(t) {
+	wt ||
+		((wt = !0), (tt ??= t?.prefetchAll), (Ht ??= t?.defaultStrategy ?? 'hover'), Je(), Qe(), tn())
 }
-function rn() {
+function Je() {
 	for (const t of ['touchstart', 'mousedown'])
 		document.body.addEventListener(
 			t,
@@ -1038,7 +916,7 @@ function rn() {
 			{ passive: !0 }
 		)
 }
-function sn() {
+function Qe() {
 	let t
 	document.body.addEventListener(
 		'focusin',
@@ -1067,14 +945,14 @@ function sn() {
 		t && (clearTimeout(t), (t = 0))
 	}
 }
-function on() {
+function tn() {
 	let t
 	Wt(() => {
 		for (const e of document.getElementsByTagName('a'))
-			W.has(e) || (X(e, 'viewport') && (W.add(e), (t ??= an()), t.observe(e)))
+			W.has(e) || (X(e, 'viewport') && (W.add(e), (t ??= en()), t.observe(e)))
 	})
 }
-function an() {
+function en() {
 	const t = new WeakMap()
 	return new IntersectionObserver((e, n) => {
 		for (const r of e) {
@@ -1094,7 +972,7 @@ function an() {
 }
 function at(t, e) {
 	const n = e?.ignoreSlowConnection ?? !1
-	if (!cn(t, n)) return
+	if (!nn(t, n)) return
 	if ((Bt.add(t), (e?.with ?? 'link') === 'link')) {
 		const s = document.createElement('link')
 		;(s.rel = 'prefetch'), s.setAttribute('href', t), document.head.append(s)
@@ -1103,7 +981,7 @@ function at(t, e) {
 			console.log(`[astro] Failed to prefetch ${t}`), console.error(s)
 		})
 }
-function cn(t, e) {
+function nn(t, e) {
 	if (!navigator.onLine || (!e && jt())) return !1
 	try {
 		const n = new URL(t, location.href)
@@ -1144,14 +1022,14 @@ function Wt(t) {
 		t()
 	})
 }
-function ln() {
+function rn() {
 	const t = document.querySelector('[name="astro-view-transitions-fallback"]')
 	return t ? t.getAttribute('content') : 'animate'
 }
-function bt(t) {
+function vt(t) {
 	return t.dataset.astroReload !== void 0
 }
-;(it || ln() !== 'none') &&
+;(it || rn() !== 'none') &&
 	(document.addEventListener('click', (t) => {
 		let e = t.target
 		if (
@@ -1164,7 +1042,7 @@ function bt(t) {
 		const n = e instanceof HTMLElement ? e.target : e.target.baseVal,
 			r = e instanceof HTMLElement ? e.href : e.href.baseVal,
 			s = new URL(r, location.href).origin
-		bt(e) ||
+		vt(e) ||
 			e.hasAttribute('download') ||
 			!e.href ||
 			(n && n !== '_self') ||
@@ -1176,14 +1054,14 @@ function bt(t) {
 			t.shiftKey ||
 			t.defaultPrevented ||
 			(t.preventDefault(),
-			yt(r, {
+			gt(r, {
 				history: e.dataset.astroHistory === 'replace' ? 'replace' : 'auto',
 				sourceElement: e
 			}))
 	}),
 	document.addEventListener('submit', (t) => {
 		let e = t.target
-		if (e.tagName !== 'FORM' || t.defaultPrevented || bt(e)) return
+		if (e.tagName !== 'FORM' || t.defaultPrevented || vt(e)) return
 		const n = e,
 			r = t.submitter,
 			s = new FormData(n, r)
@@ -1196,7 +1074,129 @@ function bt(t) {
 				u = new URL(o)
 			;(u.search = i.toString()), (o = u.toString())
 		} else c.formData = s
-		t.preventDefault(), yt(o, c)
+		t.preventDefault(), gt(o, c)
 	}),
-	nn({ prefetchAll: !0 }))
-export { $e as _, Ce as a }
+	Ze({ prefetchAll: !0 }))
+class sn extends HTMLElement {
+	constructor() {
+		super()
+		const e = this.querySelector('button')
+		e &&
+			e.addEventListener('click', (n) => {
+				if (n.currentTarget instanceof HTMLButtonElement) {
+					let r = n.currentTarget.getAttribute('aria-pressed') === 'true',
+						s = new CustomEvent('theme-change', { detail: { theme: r ? 'light' : 'dark' } })
+					document.dispatchEvent(s), e.setAttribute('aria-pressed', String(!r))
+				}
+			})
+	}
+}
+'customElements' in window && customElements.define('theme-toggle', sn)
+const on = 'modulepreload',
+	an = function (t) {
+		return '/Blog/' + t
+	},
+	bt = {},
+	cn = function (e, n, r) {
+		let s = Promise.resolve()
+		if (n && n.length > 0) {
+			document.getElementsByTagName('link')
+			const a = document.querySelector('meta[property=csp-nonce]'),
+				c = a?.nonce || a?.getAttribute('nonce')
+			s = Promise.allSettled(
+				n.map((i) => {
+					if (((i = an(i)), i in bt)) return
+					bt[i] = !0
+					const u = i.endsWith('.css'),
+						l = u ? '[rel="stylesheet"]' : ''
+					if (document.querySelector(`link[href="${i}"]${l}`)) return
+					const f = document.createElement('link')
+					if (
+						((f.rel = u ? 'stylesheet' : on),
+						u || (f.as = 'script'),
+						(f.crossOrigin = ''),
+						(f.href = i),
+						c && f.setAttribute('nonce', c),
+						document.head.appendChild(f),
+						u)
+					)
+						return new Promise((d, g) => {
+							f.addEventListener('load', d),
+								f.addEventListener('error', () => g(new Error(`Unable to preload CSS for ${i}`)))
+						})
+				})
+			)
+		}
+		function o(a) {
+			const c = new Event('vite:preloadError', { cancelable: !0 })
+			if (((c.payload = a), window.dispatchEvent(c), !c.defaultPrevented)) throw a
+		}
+		return s.then((a) => {
+			for (const c of a || []) c.status === 'rejected' && o(c.reason)
+			return e().catch(o)
+		})
+	}
+class ln extends HTMLElement {
+	constructor() {
+		super()
+		const e = this.querySelector('button[data-open-modal]'),
+			n = this.querySelector('button[data-close-modal]'),
+			r = this.querySelector('dialog'),
+			s = this.querySelector('.dialog-frame'),
+			o = (u) => {
+				document.body.contains(u.target) && !s.contains(u.target) && i()
+			},
+			a = (u) => {
+				if (u.key === 'Escape' && r.open) i(), window.removeEventListener('keydown', a)
+				else return
+			},
+			c = (u) => {
+				r.showModal(),
+					Ce(
+						'dialog',
+						{
+							clipPath: [
+								'polygon(0 0, 100% 0, 100% -200%, -200% -200%)',
+								'polygon(0 0, 100% 0, 100% 100%, 0% 100%)'
+							],
+							opacity: [0, 1]
+						},
+						{ duration: 0.2 }
+					),
+					document.body.classList.add('overflow-hidden'),
+					this.querySelector('input')?.focus(),
+					u?.stopPropagation(),
+					window.addEventListener('click', o),
+					window.addEventListener('keydown', a)
+			},
+			i = () => {
+				r.close(),
+					document.body.classList.remove('overflow-hidden'),
+					window.removeEventListener('click', o),
+					window.addEventListener('keydown', a)
+			}
+		e.addEventListener('click', c),
+			(e.disabled = !1),
+			n.addEventListener('click', i),
+			document.addEventListener('astro:after-swap', i),
+			window.addEventListener('keydown', (u) => {
+				u.key === '/' && !r.open && (c(), u.preventDefault())
+			}),
+			window.addEventListener('DOMContentLoaded', () => {
+				;(window.requestIdleCallback || ((l) => setTimeout(l, 1)))(async () => {
+					const { PagefindUI: l } = await cn(async () => {
+						const { PagefindUI: f } = await import('./ui-core.FyHART9N.js')
+						return { PagefindUI: f }
+					}, [])
+					new l({
+						element: '#pagefind__search',
+						baseUrl: '/Blog/',
+						bundlePath: '/Blog/'.replace(/\/$/, '') + '/pagefind/',
+						showImages: !1
+					})
+				})
+			})
+	}
+}
+customElements.define('site-search', ln)
+export { cn as _, Ce as a }

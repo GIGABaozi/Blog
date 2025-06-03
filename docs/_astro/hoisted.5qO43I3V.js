@@ -1,4 +1,4 @@
-import { a as t } from './hoisted.laZqQoDl.js'
+import { a as t } from './hoisted.D32Jz1Cr.js'
 const a = document.querySelectorAll('img')
 document.addEventListener('DOMContentLoaded', function () {
 	localStorage.getItem('animations') === 'true'
