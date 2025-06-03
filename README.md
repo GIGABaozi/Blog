@@ -199,7 +199,7 @@ All commands are run from the root of the project, from a terminal:
 | :---------------------- | :------------------------------------------------------------------------------------------------------------------------------- |
 | `pnpm install`          | Installs dependencies                                                                                                            |
 | `pnpm run dev`          | Starts local dev server at `localhost:3000`                                                                                      |
-| `pnpm run build`        | Build your production site to `./dist/`                                                                                          |
+| `pnpm run build`        | Build your production site to `./docs/`                                                                                          |
 | `pnpm run preview`      | Preview your build locally, before deploying                                                                                     |
 | `pnpm run format:check` | Check code format with Prettier                                                                                                  |
 | `pnpm run format`       | Format codes with Prettier                                                                                                       |

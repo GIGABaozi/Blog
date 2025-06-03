@@ -37,7 +37,7 @@ var __toESM = (mod, isNodeMode, target) => (
 
 // node_modules/mark.js/dist/mark.js
 var require_mark = __commonJS({
-	'node_modules/mark.js/dist/mark.js'(exports, module) {
+	'node_modules/mark.js/docs/mark.js'(exports, module) {
 		;(function (global, factory) {
 			typeof exports === 'object' && typeof module !== 'undefined'
 				? (module.exports = factory())
