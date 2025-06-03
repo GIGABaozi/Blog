@@ -30,9 +30,5 @@ export default defineConfig({
 		}),
 		sitemap(),
 		tailwind()
-	],
-	output: 'static',
-	build: {
-		outDir: './docs'
-	}
+	]
 })
